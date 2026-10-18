@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#12254F">
+<meta name="description" content="Player de música retrô para tocar os arquivos do seu celular.">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+<title>Rally Player</title>
+</head>
+<body>
+<div class="stripes" aria-hidden="true"></div>
+
+<header>
+  <h1>Rally</h1>
+  <label class="add" for="files">+ Adicionar</label>
+  <input id="files" type="file" accept="audio/*" multiple hidden>
+</header>
+
+<div class="net" aria-hidden="true"></div>
+
+<section class="player" aria-label="Player">
+  <div class="top">
+    <div class="board" aria-label="Placar: faixa atual e total de faixas"><small>placar</small><span id="count">00 × 00</span></div>
+  </div>
+  <div class="ball" id="ball"><div class="bounce">
+    <svg viewBox="0 0 200 200" aria-hidden="true">
+      <defs><clipPath id="c"><circle cx="100" cy="100" r="94"/></clipPath></defs>
+      <circle cx="100" cy="100" r="94" fill="#F4E3B8"/>
+      <g clip-path="url(#c)" fill="none" stroke-width="34">
+        <path d="M-10 60Q100 10 210 60" stroke="#27B5C9"/>
+        <path d="M-10 118Q100 68 210 118" stroke="#FFB000"/>
+        <path d="M-10 176Q100 126 210 176" stroke="#F2547D"/>
+      </g>
+      <g clip-path="url(#c)" fill="none" stroke="#12254F" stroke-width="3">
+        <path d="M100 6V194"/><path d="M6 100Q100 60 194 100"/>
+      </g>
+      <circle cx="100" cy="100" r="94" fill="none" stroke="#12254F" stroke-width="5"/>
+    </svg>
+  </div></div>
+  <p id="title" class="title">Nenhuma música</p>
+  <input id="seek" type="range" min="0" max="1000" value="0" aria-label="Posição da música">
+  <div class="times"><span id="cur">0:00</span><span id="dur">0:00</span></div>
+  <div class="ctrl">
+    <button id="shuffle" aria-label="Aleatório" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M10.6 9.2 5.4 4 4 5.4l5.2 5.2zM14.5 4l2.05 2.05L4 18.6 5.4 20l12.55-12.55L20 9.5V4zM14.8 13.4l-1.4 1.4 3.15 3.15L14.5 20H20v-5.5l-2.05 2.05z"/></svg></button>
+    <button id="prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zM20 6v12L9.5 12z"/></svg></button>
+    <button id="play" class="main" aria-label="Tocar"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button>
+    <button id="next" aria-label="Próxima"><svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM4 6l10.5 6L4 18z"/></svg></button>
+    <button id="repeat" aria-label="Repetir: desligado" aria-pressed="false" data-mode="0"><svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2z"/></svg></button>
+  </div>
+</section>
+
+<main>
+  <p id="empty">Quadra vazia. Toque em Adicionar para chamar músicas do celular para o jogo.</p>
+  <ul id="list"></ul>
+</main>
+
+<audio id="audio" preload="metadata"></audio>
+<script src="app.js"></script>
+</body>
+</html>
