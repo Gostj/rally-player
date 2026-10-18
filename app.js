@@ -51,6 +51,8 @@ $('files').onchange = async e => {
 async function remove(id) {
   await wrap((await store('readwrite')).delete(id));
   if (id === curId) {
+    if (url) URL.revokeObjectURL(url);
+    url = null;
     audio.pause(); audio.removeAttribute('src'); curId = null;
     $('title').textContent = 'Nenhuma música';
     $('cur').textContent = $('dur').textContent = '0:00'; setProgress(0);
@@ -82,7 +84,8 @@ function next(auto) {
     return play(n);
   }
   if (i + 1 < tracks.length) return play(i + 1);
-  if (repeatMode === 1 || !auto) play(0);
+  if (repeatMode === 1) return play(0);
+  if (auto) return; // se a faixa acabou e o modo não repete, para no fim da lista
 }
 
 function prev() {
@@ -143,3 +146,4 @@ if ('mediaSession' in navigator) {
 if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
 refresh();
+
